@@ -31,7 +31,7 @@ var championship = express.Router();
 championship.route('/result')
   	.post(PlayerController.result);
 
-championship.route('/top/:count')
+championship.route('/top')
   	.get(PlayerController.findPlayers);
 
 championship.route('/new')
