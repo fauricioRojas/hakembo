@@ -1,0 +1,11 @@
+{
+  "name": "hakembo",
+  "version": "1.0.0",
+  "description": "A famous game of rock, paper and scissors using MEAN.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server"
+  },
+  "author": "Fauricio Rojas Hern�ández",
+  "license": "ISC"
+}

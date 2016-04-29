@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="hakemboApp">
+<head>
+	<title>Hakembó</title>
+	<meta charset='urf-8'>
+	<link rel="stylesheet" type="text/css" href="./css/styles.css">
+</head>
+<body>
+	<div ng-controller="HakemboController as hakembo">
+		<h1 ng-bind="hakembo.appName"></h1>
+	</div>
+
+	<script type="text/javascript" src="./node_modules/angular/angular.min.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+	<script type="text/javascript" src="./controllers/hakembo.controller.js"></script>
+</body>
+</html>
