@@ -40,6 +40,9 @@ championship.route('/new')
 championship.route('/all')
   	.get(PlayerController.findAll);
 
+championship.route('/reset')
+    .delete(PlayerController.resetDatabase);
+
 app.use('/api/championship', championship);
 
 app.listen(port, function() {  

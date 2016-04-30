@@ -1,1 +1,0 @@
-Top -> db.players.find().sort({ score: -1 }).limit(n);

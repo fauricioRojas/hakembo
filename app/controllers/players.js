@@ -19,14 +19,19 @@ function addPlayer(user, score) {
 * Validate if a player exists or no, if exists adds the player else increase the user's score.
 * @param {string} Player's username.
 * @param {integer} Score's username.
+* @param {Object} Object with information for response.
+* @returns {Object} If occurs an error.
 */
-function playersManagement(user, score) {
+function playersManagement(user, score, res) {
 	var data = {
 		user: user
 	};
 	
 	Player.findOne(data, function(err, player) {
-	    if (player === null) {
+		if (err) {
+			return res.send(500, 'gjg');
+		}
+	    else if (player === null) {
 	    	addPlayer(user, score);
 	    	return;
 	    }
@@ -42,10 +47,10 @@ function playersManagement(user, score) {
 * @param {Object} Object with information for response.
 */
 exports.result = function(req, res) {
-	playersManagement(req.body.first, 3);
-	playersManagement(req.body.second, 1);
+	playersManagement(req.body.first, 3, res);
+	playersManagement(req.body.second, 1), res;
 
-	res.status(200).jsonp({status: 'success'});
+	res.status(200).jsonp({ status: 'success' });
 };
 
 /**
@@ -73,7 +78,7 @@ function manipulatePlayers(players) {
 }
 
 /**
-* Return n players with more score in the database.
+* Return top n players with more score in the database, if count don't specified, the API assign count as 10.
 * @param {Object} Contain information that receive from the web app.
 * @param {Object} Object with information for response.
 * @return {array} Array with the players' user.
@@ -104,5 +109,21 @@ exports.findAll = function(req, res) {
 	    }
 
 		res.status(200).jsonp(players);
+	});
+};
+
+/**
+* Delete all players in the database.
+* @param {Object} Contain information that receive from the web app.
+* @param {Object} Object with information for response.
+* @return {Object} Object with response of the remove.
+*/
+exports.resetDatabase = function(req, res) {
+	Player.remove(function(err, response) {
+	    if(err) {
+	    	res.send(500, err.message);
+	    }
+
+		res.status(200).jsonp({ status: 'success' });
 	});
 };
