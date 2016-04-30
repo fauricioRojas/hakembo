@@ -58,24 +58,37 @@ exports.championship = function(req, res) {
 };
 
 /**
+* Return a list with the user of the players' list.
+* @param {array} Array with players.
+* @return {array} Array with the players' user.
+*/
+function manipulatePlayers(players) {
+	var playerList = [];
+
+	players.forEach(function(player, index) {
+		playerList.push(player.user);
+	});
+
+	return playerList;
+}
+
+/**
 * Return n players with more score in the database.
 * @param {Object} Contain information that receive from the web app.
 * @param {Object} Object with information for response.
-* @return {array} Players.
+* @return {array} Array with the players' user.
 */
-exports.findPlayers = function(req, res) {
-	console.log(req.body.count);
-	//var count = ( req.body.count === '' ? 10 : req.body.count );
-	//console.log(count);
+exports.top = function(req, res) {
+	var count = ( req.query.count === '' ? 10 : parseInt(req.query.count) ),
+		score = { score: -1 };
 
-	/*Player.findById(count, function(err, players) {
+	Player.find({}, {user: ''}).sort(score).limit(count).exec(function(err, players) {
 	    if (err) {
 	    	return res.send(500, err.message);
 	    }
 
-    	console.log('GET /players/' + req.params.id);
-		res.status(200).jsonp(players);
-	});*/
+		res.status(200).jsonp({ players: manipulatePlayers(players) });
+	});
 };
 
 /**
@@ -90,7 +103,6 @@ exports.findAll = function(req, res) {
 	    	res.send(500, err.message);
 	    }
 
-    	console.log('GET /players');
 		res.status(200).jsonp(players);
 	});
 };
