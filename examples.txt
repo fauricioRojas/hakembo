@@ -1,0 +1,25 @@
+[ ["Armando", "P"],["Dave", "S"] ]
+
+[
+	[
+		[ ["Armando", "P"], ["Dave", "S"] ],
+		[ ["Richard", "R"], ["Michael", "S"] ]
+	],
+	[
+		[ ["Allen", "S"], ["Omer", "P"] ],
+		[ ["John", "R"], ["Robert", "P"] ]
+	]
+]
+
+[ [ [ ["Armando", "P"], ["Dave", "S"] ], [ ["Richard", "R"], ["Michael", "S"] ] ], [ [ ["Allen", "S"], ["Omer", "P"] ], [ ["John", "R"], ["Robert", "P"] ] ] ]
+
+[
+	[
+		[ ["Armando", "P"], ["Dave", "S"] ], // DAVE
+		[ ["Richard", "R"], ["Michael", "S"] ] // RICHARD // RICHARD
+	],
+	[
+		[ ["Allen", "S"], ["Omer", "P"] ], // ALLEN // ALLEN
+		[ ["John", "R"], ["Robert", "P"] ] // ROBERT
+	]
+]

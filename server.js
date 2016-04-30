@@ -35,7 +35,7 @@ championship.route('/top')
   	.get(PlayerController.top);
 
 championship.route('/new')
-  	.post(PlayerController.championship);
+  	.post(PlayerController.new);
 
 championship.route('/all')
   	.get(PlayerController.findAll);
