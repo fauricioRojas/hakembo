@@ -9,7 +9,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
-<body ng-controller="HakemboController as hakembo">
+<body>
 	<div class="title-box-1">
 		<label>Rock-Paper-Scissors</label>
 	</div>
@@ -31,7 +31,7 @@
 		          		<ul class="nav navbar-nav">
 		            		<li class="active"><a data-target="#championship" data-toggle="tab"><span class="fa fa-bolt icon-box"></span>&nbsp;&nbsp;Championship</a></li>
 		            		<li><a data-target="#top" data-toggle="tab"><span class="fa fa-arrow-up icon-box"></span>&nbsp;&nbsp;Top 10</a></li>
-		            		<li><a data-target="#files" data-toggle="tab"><span class="fa fa-file-text-o icon-box"></span>&nbsp;&nbsp;Files examples</a></li>
+		            		<li><a data-target="#files" data-toggle="tab"><span class="fa fa-file-text-o icon-box"></span>&nbsp;&nbsp;Files example</a></li>
 		            		<li><a data-target="#database" data-toggle="tab"><span class="fa fa-database icon-box"></span>&nbsp;&nbsp;Database</a></li>
 		            		<li><a data-target="#about-me" data-toggle="tab"><span class="fa fa-info-circle icon-box"></span>&nbsp;&nbsp;About me</a></li>
 		          		</ul>
@@ -46,39 +46,68 @@
 						<label>Championship</label>
 					</div>
 					<div>
-						<span class="btn btn-default btn-file">
-			            	<span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
-		    				Choose file <input type="file" id="file">
-						</span>
-						<button class="btn btn-primary" ng-click="championship.uploadFile();"><span class="fa fa-upload"></span>&nbsp;&nbsp;Upload file</button>
-					</div>
+						<div>
+							<div class="panel panel-secondary">
+					      		<div class="panel-heading">
+					      			<label>Upload a file with a championship</label>
+				      			</div>
+					      		<div class="panel-body">
+					      			<textarea class="form-control" id="content" ng-model="championship.content" rows="7" readonly></textarea>
+				      			</div>
+				      			<div class="panel-footer">
+				      				<span class="btn btn-default btn-file">
+						            	<span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
+					    				Choose file <input type="file" id="file">
+									</span>&nbsp;
+									<button class="btn btn-primary" ng-click="championship.uploadFile($event);"><span class="fa fa-upload"></span>&nbsp;&nbsp;Upload file</button>
+			      				</div>
+					    	</div>
+					    </div>
+					    <div>
+					    	<div class="panel panel-secondary">
+					      		<div class="panel-heading">
+					      			<label>Results of the championship</label>
+				      			</div>
+					      		<div class="panel-body" ng-show="championship.winner">
+					      			<p>The winner is <span class="bold" ng-bind="championship.winner"></span> with the strategy <span class="bold" ng-bind="championship.strategy"></span>.</p>
+					      			<p>Go to the top players to see how much scaled <span class="bold" ng-bind="championship.winner"></span>.</p>
+				      			</div>
+				      			<div class="panel-footer">
+									<button class="btn btn-primary" ng-click="championship.championship();"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp;Come on for the championship!</button>
+			      				</div>
+					    	</div>
+					    </div>
+				    </div>
 		    	</section>
 		    	<section class="tab-pane fade" ng-controller="TopController as top" id="top">
 		    		<div class="title-box-2">
 						<label ng-bind="top.title"></label>
 					</div>
-					<div>
-						<form>
-				            <div>
-				            	<p>
-			                    	<label>If you want change the number players of the top, type the number</label>
-			                    	<input class="form-control" type="text" ng-model="top.count" ng-blur="reset.restarting()">
-		                    	</p>
-				            </div>
-				            <div>
-				            	<div ng-show="passState" ng-class="passClass">{{passMsg}}</div>
-					            <center>
-					                <button class="btn btn-primary" ng-click="top.getTopPlayers();"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Go for top players</button>
-					            </center>
-					        </div>
-						</form>
-						<div class="margin"><label>It shows the {{top.title | lowercase}} of the players with more score of all championships.</label></div>
-						<div>
-							<ol>
+					<div class="panel panel-secondary">
+			      		<div class="panel-heading">
+			      			<label>It shows the {{top.title | lowercase}} of the players with more score of all championships.</label>
+		      			</div>
+			      		<div class="panel-body">
+			      			<form>
+					            <div>
+					            	<p>
+				                    	<label>If you want change the number players of the top, type the number</label>
+				                    	<input class="form-control" type="text" ng-model="top.count" ng-blur="reset.restarting()">
+			                    	</p>
+					            </div>
+					            <div>
+						            <center>
+						                <button class="btn btn-primary" ng-click="top.getTopPlayers();"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Go for top players</button>
+						            </center>
+						        </div>
+							</form>
+		      			</div>
+		      			<div class="panel-footer">
+		      				<ol>
 								<li ng-repeat="(index, player) in top.players" ng-bind="player" ng-class="{'first-player' : index === 0, 'second-player' : index === 1, 'third-player' : index === 2}"></li>
 							</ol>
-						</div>
-					</div>
+	      				</div>
+			    	</div>
 		    	</section>
 		    	<section class="tab-pane fade" ng-controller="FileController as file" id="files">
 		    		<div class="title-box-2">
@@ -109,7 +138,7 @@
 				  			<form>
 					            <div>
 					            	<p>
-				                    	<label>Type the word 'players' to confirm.</label>
+				                    	<label class="margin-top">Type the word 'players' to confirm</label>
 				                    	<input class="form-control" type="text" ng-model="database" ng-blur="reset.restarting()">
 			                    	</p>
 					            </div>
@@ -124,9 +153,25 @@
 					</div>
 					<div ng-show="reset.resetMsg" ng-class="reset.resetStyle" ng-bind="reset.resetMsg"></div>
 		    	</section>
-		    	<section class="tab-pane fade" id="about-me">
+		    	<section class="tab-pane fade" ng-controller="AboutController as about" id="about-me">
 		    		<div class="title-box-2">
 						<label>About me</label>
+					</div>
+					<div>
+						<div>
+							<label ng-bind="about.name"></label>
+							<p class="justify" ng-bind="about.description"></p>
+						</div>
+						<div class="margin-top">		
+							<div>
+								<label>Follow me at</label>
+							</div>
+							<div class="purple box-flex">
+						    	<a class="btn fa fa-facebook red" href="https://www.facebook.com/fauricioRojas" target="_blank"></a>
+						    	<a class="btn fa fa-github red" href="https://github.com/fauricioRojas" target="_blank"></a>
+						    	<a class="btn fa fa-linkedin red" href="https://www.linkedin.com/in/fauriciorojas" target="_blank"></a>
+							</div>
+						</div>
 					</div>
 		    	</section>
 	    	</div>
@@ -138,12 +183,11 @@
 	<script type="text/javascript" src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="./js/app.js"></script>
 	<script type="text/javascript" src="./js/FileSaver.min.js"></script>
-	<script type="text/javascript" src="./controllers/hakembo.controller.js"></script>
+	<script type="text/javascript" src="./controllers/about.controller.js"></script>
 	<script type="text/javascript" src="./controllers/reset.controller.js"></script>
 	<script type="text/javascript" src="./controllers/top.controller.js"></script>
 	<script type="text/javascript" src="./controllers/championship.controller.js"></script>
 	<script type="text/javascript" src="./controllers/file.controller.js"></script>
-	<script type="text/javascript" src="./factories/hakembo.factory.js"></script>
 	<script type="text/javascript" src="./factories/reset.factory.js"></script>
 	<script type="text/javascript" src="./factories/top.factory.js"></script>
 	<script type="text/javascript" src="./factories/championship.factory.js"></script>
