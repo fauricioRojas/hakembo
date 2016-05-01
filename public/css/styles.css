@@ -205,12 +205,21 @@ textarea {
 .red {
     color: #AF3030;
 }
-.purple .fa {
+.red .fa {
 	font-size: 40px;
 }
-.purple .fa:hover {
+.red .fa:hover {
     transform: scale(1.2);
-    color: #BE2571;
+    color: #AF3030;
+}
+.fa-facebook {
+	color: #3b5998;
+}
+.fa-github {
+	color: #333333;
+}
+.fa-linkedin {
+	color: #0077B5;
 }
 
 @media screen and (min-width: 240px) {
@@ -271,5 +280,10 @@ textarea {
 	}
 	body {
 		padding: 10px 75px 20px 75px;
+	}
+}
+@media only screen and (min-width:1440px){
+    body {
+		padding: 20px 150px 20px 150px;
 	}
 }

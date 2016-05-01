@@ -5,7 +5,6 @@
 		.module('hakemboApp')
 		.controller('ResetController', ResetController);
 
-	ResetController.$inject = ['$scope', '$http', '$timeout', 'ResetFactory'];
 	function ResetController($scope, $http, $timeout, ResetFactory) {
 		var vm = this;
 		vm.resetDatabase = resetDatabase;

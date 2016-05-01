@@ -2,59 +2,78 @@
 	'use strict';
 
 	angular
-		.module('hakemboApp')
-		.controller('ChampionshipController', ChampionshipController);
+		  .module('hakemboApp')
+		  .controller('ChampionshipController', ChampionshipController);
 
-	ChampionshipController.$inject = ['$http', '$timeout', 'ChampionshipFactory'];
+  /**
+  * Validate if a player exists or no, if exists add the player else increase the user's score.
+  * @param {string} Player's username.
+  * @param {integer} Score's username.
+  * @param {Object} Object with information for response.
+  * @returns {Object} If occurs an error.
+  */
 	function ChampionshipController($http, $timeout, ChampionshipFactory) {
-		var vm = this;
-		vm.content = '';
-		vm.uploadFile = uploadFile;
-		vm.championship = championship;
+		  var vm = this;
+    	vm.content = '';
+    	vm.uploadFile = uploadFile;
+    	vm.championship = championship;
 
-		function readBlob(opt_startByte, opt_stopByte) {
+    	function cleanUI() {
+    		vm.winner = '';
+    		vm.comeOn = false;
+    		document.getElementById('content').textContent = '';
+    	}
+
+    	function readBlob(opt_startByte, opt_stopByte) {
     		var files = document.getElementById('file').files;
 
     		if (!files.length) {
-      			return;
-    		}
+            	return;
+        	}
 
-		    var file = files[0];
-		    var start = parseInt(opt_startByte) || 0;
-		    var stop = parseInt(opt_stopByte) || file.size - 1;
+        	var file = files[0],
+        	    start = parseInt(opt_startByte) || 0,
+        	    stop = parseInt(opt_stopByte) || file.size - 1,
+        	    reader = new FileReader(),
+        	    blob;
 
-		    var reader = new FileReader();
+        	// If we use onloadend, we need to check the readyState.
+        	reader.onloadend = function(evt) {
+            	if (evt.target.readyState == FileReader.DONE) {
+            		var content = evt.target.result;
 
-    		// If we use onloadend, we need to check the readyState.
-    		reader.onloadend = function(evt) {
-      			if (evt.target.readyState == FileReader.DONE) {
-        			document.getElementById('content').textContent = evt.target.result;
-      			}
+              		if (content[2] === '¿') {
+              			content = content.slice(3, content.length);
+              		}
+
+              		document.getElementById('content').textContent = content;
+            	}
     		};
 
-    		var blob = file.slice(start, stop + 1);
-    		reader.readAsBinaryString(blob);
-  		}
+    		blob = file.slice(start, stop + 1);
+        	reader.readAsBinaryString(blob);
+    	}
 
-		function uploadFile(evt) {
-			var startByte = evt.target.getAttribute('data-startbyte');
-  			var endByte = evt.target.getAttribute('data-endbyte');
-  			readBlob(startByte, endByte);
-  		}
+    	function uploadFile(evt) {
+      		var startByte = evt.target.getAttribute('data-startbyte'),
+        	    endByte = evt.target.getAttribute('data-endbyte');
 
-  		function championship() {
-  			var content = document.getElementById('content').textContent;
+        	readBlob(startByte, endByte);
+        	vm.comeOn = true;
+      	}
 
-  			ChampionshipFactory.championship(content)
-  			.then(function(response) {
-  				vm.winner = response[0];
-  				vm.strategy = response[1];
+      	function championship() {
+        	var content = document.getElementById('content').textContent;
 
-  				$timeout(function() {
-  					vm.winner = '';
-  					document.getElementById('content').textContent = '';
-  				}, 10000);
-  			});
-  		}
+        	ChampionshipFactory.championship(content)
+        	.then(function(response) {
+          		vm.winner = response[0];
+          		vm.strategy = response[1];
+
+          		$timeout(function() {
+            		cleanUI();
+          		}, 5000);
+        	});
+      	}
 	}
 })();

@@ -41,6 +41,7 @@
 	  	</div>
 	  	<div class="col-md-9 col-sm-8">
 	  		<div class="tab-content">
+		    	<!-- Championship section -->
 		    	<section class="tab-pane fade in active" ng-controller="ChampionshipController as championship" id="championship">
 		    		<div class="title-box-2">
 						<label>Championship</label>
@@ -73,12 +74,14 @@
 					      			<p>Go to the top players to see how much scaled <span class="bold" ng-bind="championship.winner"></span>.</p>
 				      			</div>
 				      			<div class="panel-footer">
-									<button class="btn btn-primary" ng-click="championship.championship();"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp;Come on for the championship!</button>
+									<button class="btn btn-primary" ng-click="championship.championship();" ng-disabled="!championship.comeOn"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp;Come on for the championship!</button>
 			      				</div>
 					    	</div>
 					    </div>
 				    </div>
 		    	</section>
+		    	
+		    	<!-- Top players section -->
 		    	<section class="tab-pane fade" ng-controller="TopController as top" id="top">
 		    		<div class="title-box-2">
 						<label ng-bind="top.title"></label>
@@ -109,22 +112,26 @@
 	      				</div>
 			    	</div>
 		    	</section>
+
+		    	<!-- Files example section -->
 		    	<section class="tab-pane fade" ng-controller="FileController as file" id="files">
 		    		<div class="title-box-2">
 						<label>Files examples</label>
 					</div>
-					<div class="panel panel-secondary" ng-repeat="file in file.files">
+					<div class="panel panel-secondary" ng-repeat="eachFile in file.files">
 			      		<div class="panel-heading">
-			      			<label ng-bind="file.title"></label>
+			      			<label ng-bind="eachFile.title"></label>
 		      			</div>
 			      		<div class="panel-body">
-			      			<textarea class="form-control" ng-model="file.content" rows="{{file.rows}}" readonly></textarea>
+			      			<textarea class="form-control" ng-model="eachFile.content" rows="{{eachFile.rows}}" readonly></textarea>
 		      			</div>
 		      			<div class="panel-footer">
-		      				<button class="btn btn-primary" ng-click="file.downloadFile(file.content);"><span class="fa fa-download"></span>&nbsp;&nbsp;Download file</button>
+		      				<button class="btn btn-primary" ng-click="file.downloadFile(eachFile.content);"><span class="fa fa-download"></span>&nbsp;&nbsp;Download file</button>
 	      				</div>
 			    	</div>
 		    	</section>
+
+		    	<!-- Database section -->
 		    	<section class="tab-pane fade" ng-controller="ResetController as reset" id="database">
 		    		<div class="title-box-2">
 						<label>Database</label>
@@ -153,6 +160,8 @@
 					</div>
 					<div ng-show="reset.resetMsg" ng-class="reset.resetStyle" ng-bind="reset.resetMsg"></div>
 		    	</section>
+
+		    	<!-- About me section -->
 		    	<section class="tab-pane fade" ng-controller="AboutController as about" id="about-me">
 		    		<div class="title-box-2">
 						<label>About me</label>
@@ -166,10 +175,8 @@
 							<div>
 								<label>Follow me at</label>
 							</div>
-							<div class="purple box-flex">
-						    	<a class="btn fa fa-facebook red" href="https://www.facebook.com/fauricioRojas" target="_blank"></a>
-						    	<a class="btn fa fa-github red" href="https://github.com/fauricioRojas" target="_blank"></a>
-						    	<a class="btn fa fa-linkedin red" href="https://www.linkedin.com/in/fauriciorojas" target="_blank"></a>
+							<div class="red box-flex">
+						    	<a ng-repeat="net in about.socialNets" ng-class="net.class" href="{{net.url}}" target="_blank"></a>
 							</div>
 						</div>
 					</div>

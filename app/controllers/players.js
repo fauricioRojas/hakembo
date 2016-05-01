@@ -1,4 +1,6 @@
+// Require libraries for the controller function successfully.
 var mongoose = require('mongoose');
+// Import the Player model.
 var Player = mongoose.model('Player');
 
 /**
