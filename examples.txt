@@ -71,4 +71,51 @@
 			[ ["Galatasaray", "P"], ["Chelsea", "S"] ] // Chelsea // Chelsea
 		]
 	]
-] 
+]
+
+[
+	[
+		[
+			[
+				[ ["Shalke 04", "P"], ["Real Madrid", "S"] ],
+				[ ["Zenit", "R"], ["BVB", "P"] ]
+			],
+			[
+				[ ["Olympiacos", "R"], ["ManU", "P"] ],
+				[ ["Arsenal", "P"], ["Bayern", "S"] ]
+			]
+		],
+		[
+			[
+				[ ["City", "R"], ["Barca", "P"] ],
+				[ ["Milan", "P"], ["Atletico", "S"] ]
+			],
+			[
+				[ ["Leverksen", "R"], ["PSG", "P"] ],
+				[ ["Galatasaray", "P"], ["Chelsea", "S"] ]
+			]
+		]
+	],
+	[
+		[
+			[
+				[ ["Shalke 04", "P"], ["Real Madrid", "S"] ],
+				[ ["Zenit", "R"], ["BVB", "P"] ]
+			],
+			[
+				[ ["Olympiacos", "R"], ["ManU", "P"] ],
+				[ ["Arsenal", "P"], ["Bayern", "S"] ]
+			]
+		],
+		[
+			[
+				[ ["City", "R"], ["Barca", "P"] ],
+				[ ["Milan", "P"], ["Atletico", "S"] ]
+			],
+			[
+				[ ["Leverksen", "R"], ["PSG", "P"] ],
+				[ ["Galatasaray", "P"], ["Chelsea", "S"] ]
+			]
+		]
+	]
+]

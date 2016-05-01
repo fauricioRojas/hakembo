@@ -91,6 +91,34 @@ body {
     background-color: #D74932;
     border: 2px solid #D74932;
 }
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    background: #E6E6E6;
+    border: 1px solid #C9C9C9;
+    font-weight: 600;
+}
+.btn-file:hover {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #C9C9C9;
+    background: #E6E6E6;
+    color: black;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    cursor: inherit;
+    display: block;
+}
 
 .success-box, .info-box, .error-box {
     border: 1px solid;
@@ -129,6 +157,28 @@ body {
 }
 .third-player {
 	font-size: 1.25em;		
+}
+
+.panel-secondary>.panel-heading {
+    color: #fff;
+    background-color: #43CD80;
+    border-color: #43CD80;
+}
+.panel-secondary {
+    border-color: #43CD80;
+}
+.panel-footer {
+    background-color: transparent;
+    border-top: 1px solid #43CD80;
+    text-align: right;
+}
+
+textarea {
+	resize: none;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #FAFAFA;
+    opacity: 1;
 }
 
 @media screen and (min-width: 240px) {
