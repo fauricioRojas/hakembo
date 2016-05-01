@@ -1,4 +1,5 @@
 [ ["Armando", "P"],["Dave", "S"] ]
+[ ["Bayern", "R" ], ["Real Madrid", "S"] ]
 
 [
 	[
@@ -23,3 +24,51 @@
 		[ ["John", "R"], ["Robert", "P"] ] // ROBERT
 	]
 ]
+
+
+
+[
+	[
+		[
+			[ ["Shalke 04", "P"], ["Real Madrid", "S"] ],
+			[ ["Zenit", "R"], ["BVB", "P"] ]
+		],
+		[
+			[ ["Olympiacos", "R"], ["ManU", "P"] ],
+			[ ["Arsenal", "P"], ["Bayern", "S"] ]
+		]
+	],
+	[
+		[
+			[ ["City", "R"], ["Barca", "P"] ],
+			[ ["Milan", "P"], ["Atletico", "S"] ]
+		],
+		[
+			[ ["Leverksen", "R"], ["PSG", "P"] ],
+			[ ["Galatasaray", "P"], ["Chelsea", "S"] ]
+		]
+	]
+]
+
+[
+	[
+		[
+			[ ["Shalke 04", "P"], ["Real Madrid", "S"] ], // Real Madrid // Real Madrid
+			[ ["Zenit", "R"], ["BVB", "P"] ] // BVB
+		],
+		[
+			[ ["Olympiacos", "P"], ["ManU", "S"] ], // ManU
+			[ ["Arsenal", "S"], ["Bayern", "R"] ] // Bayern // Bayern
+		]
+	],
+	[
+		[
+			[ ["City", "R"], ["Barca", "P"] ], // Barca
+			[ ["Milan", "P"], ["Atletico", "S"] ] // Atletico // Atletico
+		],
+		[
+			[ ["Leverksen", "R"], ["PSG", "P"] ], // PSG
+			[ ["Galatasaray", "P"], ["Chelsea", "S"] ] // Chelsea // Chelsea
+		]
+	]
+] 

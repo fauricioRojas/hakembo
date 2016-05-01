@@ -57,24 +57,30 @@ exports.result = function(req, res) {
 	res.status(200).jsonp({ status: 'success' });
 };
 
-exports.validateStrategy = function(strategy, res) {
-	if (strategy !== 'R' && strategy !== 'P' && strategy !== 'S') {
-		console.log('Diferent strategy');
-		return res.send(500, { status: 'invalid strategy' });
+/**
+* Validate a duel must have exactly 2 players. If the array's length is different of 2, raise an exception.
+* @param {Array} Players array.
+*/
+exports.validateLength = function(players) {
+	if (players.length !== 2) {
+		throw 'The duel format is invalid, must have exactly 2 players.';
 	}
 }
 
-/*exports.duel = function(arrayPlayers, res) {
-	var i = 0,
-		length = arrayPlayers.length;
-
-	for ( ; i < length; i++) {
-		exports.validateStrategy(arrayPlayers[i][1], res);
+/**
+* Validate that a strategy is "R", "P" or "S". If the strategy is different of those strategies, raise an exception.
+* @param {string} Strategy.
+*/
+exports.validateStrategy = function(strategy) {
+	if (strategy !== 'R' && strategy !== 'P' && strategy !== 'S') {
+		throw 'The player strategy only can be R, P or S.';
 	}
+}
 
-	return exports.whoWin(arrayPlayers[0], arrayPlayers[1]);
-}*/
-
+/**
+* Determine if strategy1 wins to strategy2.
+* @param {bool} True if strategy1 won, else false.
+*/
 exports.firstIsWinner = function(strategy1, strategy2) {
 	if ( (strategy1 === 'P' && strategy2 === 'R') || 
 		 (strategy1 === 'R' && strategy2 === 'S') || 
@@ -85,56 +91,85 @@ exports.firstIsWinner = function(strategy1, strategy2) {
 	return false;
 }
 
-exports.whoWin = function(player1, player2, res) {	
-	exports.validateStrategy(player1[1], res);
-	exports.validateStrategy(player2[1], res);
+/**
+* Principal method for determinate who is the winner. Call validateStrategy and firstIsWinner method.
+* @param {Array} Array with the winner and subchampion.
+*/
+exports.whoWin = function(player1, player2) {
+	// Transform the strategy to uppercase.
+	player1[1] = player1[1].toUpperCase();
+	player2[1] = player2[1].toUpperCase();
+
+	// Validate if strategy is valid.
+	exports.validateStrategy(player1[1]);
+	exports.validateStrategy(player2[1]);
 
 	if (player1[1] !== player2[1]) {
-		// Player 1 is the winner
+		// Player 1 is the winner.
 		if (exports.firstIsWinner(player1[1], player2[1])) {
-			return player1;
+			return [player1, player2];
 		}
-		// Player 2 is the winner
+		// Player 2 is the winner.
 		else if (exports.firstIsWinner(player2[1], player1[1])) {
-			return player2;
+			return [player2, player1];
 		}
 	}
-	else {
-		return player1;
-	}
+	
+	// Player 1 is the winner.
+	return [player1, player2];
 }
 
+/**
+* Travel throughout the players' array recursively and get the winner of each duel. From each winner create new duels and so on until the tournament ends.
+* @param {Array} Array with championship's players.
+* @param {Object} Object with information for response.
+* @returns {Array} Array with the first and second place of the championship.
+*/
 exports.championship = function(tournament) {
+	var key1,
+		key2;
+
   	if (typeof(tournament[0][1]) === 'string') {
-    	return exports.whoWin(tournament[0],tournament[1]);
+  		exports.validateLength(tournament);
+
+    	return exports.whoWin(tournament[0],tournament[1])[0];
     }
   	else {
-    	a1 = exports.championship(tournament[0]);
-    	a2 = exports.championship(tournament[1]);
+    	key1 = exports.championship(tournament[0]);
+    	key2 = exports.championship(tournament[1]);
     	
-    	return exports.championship([a1,a2]);
+    	return exports.championship([key1, key2]);
     }
 }
 
 
 /**
-* Validate.
+* Get the tournament from the front-end and pass it to the championship method. Save in the database the winner with 3 points and subchampion with 1 point.
 * @param {Object} Contain information that receive from the web app.
 * @param {Object} Object with information for response.
 */
 exports.new = function(req, res) {
 	var data = JSON.parse(req.body.data),
-		granFinal = [];
+		finalists = [],
+		i = 0,
+		length = data.length;
 	
-	for (var i=0; i<data.length; i++) {
-		granFinal[i] = exports.championship(data[i]);
+	if (typeof(data[0][1]) === 'string') {
+    	exports.validateLength(data);
+    	finalists = data;
+    }
+    else {
+		for ( ; i < length; i++) {
+			finalists.push(exports.championship(data[i]));
+		}
 	}
 
-	console.log(granFinal);
-	console.log(exports.whoWin(granFinal[0], granFinal[1]));
+	finalists = exports.whoWin(finalists[0], finalists[1], res);
+
+	exports.playersManagement(finalists[0][0], 3, res);
+	exports.playersManagement(finalists[1][0], 1, res);
 	
-	
-	res.status(200).jsonp({ status: 'success' });
+	res.status(200).jsonp({ winner: finalists[0] });
 };
 
 /**
