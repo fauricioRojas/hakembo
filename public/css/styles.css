@@ -50,6 +50,9 @@ textarea {
 .fa-info-circle {
 	color: #2980B9
 }
+.fa-book {
+    color: #8C391B;
+}
 .nav li {
 	cursor: pointer;
 }

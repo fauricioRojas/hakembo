@@ -5,35 +5,44 @@
 		  .module('hakemboApp')
 		  .controller('ChampionshipController', ChampionshipController);
 
+  // Inject dependencies.
+  ChampionshipController.$inject = ['$timeout', 'ChampionshipFactory'];
+
   /**
-  * Validate if a player exists or no, if exists add the player else increase the user's score.
-  * @param {string} Player's username.
-  * @param {integer} Score's username.
-  * @param {Object} Object with information for response.
-  * @returns {Object} If occurs an error.
+  * Championship controller.
+  * @param {Object} Service that meet certain piece of code when certain time has passed.
+  * @param {Object} Service that provides functions to help controller's functionality.
   */
-	function ChampionshipController($http, $timeout, ChampionshipFactory) {
+	function ChampionshipController($timeout, ChampionshipFactory) {
 		  var vm = this;
     	vm.content = '';
     	vm.uploadFile = uploadFile;
     	vm.championship = championship;
 
+      /**
+      * Clean the championship UI.
+      */
     	function cleanUI() {
-    		vm.winner = '';
-    		vm.comeOn = false;
-    		document.getElementById('content').textContent = '';
+          vm.winner = '';
+    		  vm.comeOn = false;
+    		  document.getElementById('content').textContent = '';
     	}
 
-    	function readBlob(opt_startByte, opt_stopByte) {
-    		var files = document.getElementById('file').files;
+      /**
+      * Read content of a file and show it in the UI.
+      * @param {integer} First byte of the file.
+      * @param {integer} Last byte of the file.
+      */
+    	function readBlob(startByte, endByte) {
+    		  var files = document.getElementById('file').files;
 
-    		if (!files.length) {
+    		  if (!files.length) {
             	return;
         	}
 
         	var file = files[0],
-        	    start = parseInt(opt_startByte) || 0,
-        	    stop = parseInt(opt_stopByte) || file.size - 1,
+        	    start = parseInt(startByte) || 0,
+        	    stop = parseInt(endByte) || file.size - 1,
         	    reader = new FileReader(),
         	    blob;
 
@@ -48,32 +57,40 @@
 
               		document.getElementById('content').textContent = content;
             	}
-    		};
+    		  };
 
-    		blob = file.slice(start, stop + 1);
+    		  blob = file.slice(start, stop + 1);
         	reader.readAsBinaryString(blob);
     	}
 
+      /**
+      * Take a file from UI and send it to be read.
+      * @param {integer} First byte of the file.
+      * @param {integer} Last byte of the file.
+      */
     	function uploadFile(evt) {
       		var startByte = evt.target.getAttribute('data-startbyte'),
         	    endByte = evt.target.getAttribute('data-endbyte');
 
         	readBlob(startByte, endByte);
         	vm.comeOn = true;
-      	}
+    	}
 
-      	function championship() {
-        	var content = document.getElementById('content').textContent;
+      /**
+      * Send the content file to the RESTfulAPI for start championship.
+      */
+    	function championship() {
+          var content = document.getElementById('content').textContent;
 
-        	ChampionshipFactory.championship(content)
-        	.then(function(response) {
-          		vm.winner = response[0];
-          		vm.strategy = response[1];
+          ChampionshipFactory.championship(content)
+          .then(function(response) {
+              vm.winner = response[0];
+        		  vm.strategy = response[1];
 
-          		$timeout(function() {
-            		cleanUI();
-          		}, 5000);
-        	});
-      	}
-	}
+        		  $timeout(function() {
+          		  cleanUI();
+        		  }, 5000);
+      	 });
+    	}
+  }
 })();

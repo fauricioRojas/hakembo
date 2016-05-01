@@ -34,6 +34,7 @@
 		            		<li><a data-target="#files" data-toggle="tab"><span class="fa fa-file-text-o icon-box"></span>&nbsp;&nbsp;Files example</a></li>
 		            		<li><a data-target="#database" data-toggle="tab"><span class="fa fa-database icon-box"></span>&nbsp;&nbsp;Database</a></li>
 		            		<li><a data-target="#about-me" data-toggle="tab"><span class="fa fa-info-circle icon-box"></span>&nbsp;&nbsp;About me</a></li>
+		            		<li><a data-target="#api" data-toggle="tab"><span class="fa fa-book icon-box"></span>&nbsp;&nbsp;API documentation</a></li>
 		          		</ul>
 		        	</div>
 	      		</div>
@@ -146,7 +147,7 @@
 					            <div>
 					            	<p>
 				                    	<label class="margin-top">Type the word 'players' to confirm</label>
-				                    	<input class="form-control" type="text" ng-model="database" ng-blur="reset.restarting()">
+				                    	<input class="form-control" type="text" ng-model="confirm" ng-blur="reset.restarting()">
 			                    	</p>
 					            </div>
 					            <div>
@@ -179,6 +180,15 @@
 						    	<a ng-repeat="net in about.socialNets" ng-class="net.class" href="{{net.url}}" target="_blank"></a>
 							</div>
 						</div>
+					</div>
+		    	</section>
+		    	<!-- API documentation section -->
+		    	<section class="tab-pane fade" id="api">
+		    		<div class="title-box-2">
+						<label>API documentation</label>
+					</div>
+					<div>
+						
 					</div>
 		    	</section>
 	    	</div>

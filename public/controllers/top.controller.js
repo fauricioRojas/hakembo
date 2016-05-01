@@ -5,17 +5,26 @@
 		.module('hakemboApp')
 		.controller('TopController', TopController);
 
-	TopController.$inject = ['$http', 'TopFactory'];
-	function TopController($http, TopController) {
+	// Inject dependencies.
+	TopController.$inject = ['TopFactory'];
+
+	/**
+	* Top controller.
+	* @param {Object} Service that provides functions to help controller's functionality.
+	*/
+	function TopController(TopFactory) {
 		var vm = this;
 		vm.title = 'Top 10';
 		vm.count = '';
-
 		vm.getTopPlayers = getTopPlayers;
 
+		/**
+		* Get the n top players.
+		*/
 		function getTopPlayers() {
 			vm.title = (vm.count !== '' ? 'Top ' + vm.count : 'Top 10');
-			TopController.getTopPlayers(vm.count)
+
+			TopFactory.getTopPlayers(vm.count)
 			.then(function(response) {
 				vm.players = response;
 			})
