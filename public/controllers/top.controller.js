@@ -7,7 +7,7 @@
 
 	// Inject dependencies.
 	TopController.$inject = ['TopFactory'];
-
+	
 	/**
 	* Top controller.
 	* @param {Object} Service that provides functions to help controller's functionality.
@@ -18,6 +18,8 @@
 		vm.count = '';
 		vm.getTopPlayers = getTopPlayers;
 
+		getTopPlayers();
+		
 		/**
 		* Get the n top players.
 		*/
@@ -29,7 +31,5 @@
 				vm.players = response;
 			})
 		}
-
-		getTopPlayers();
 	}
 })();

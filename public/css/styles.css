@@ -35,9 +35,6 @@ textarea {
 	font-size: 23px;
 	color: #FF770D;
 }
-.fa-database {
-	color: #43CD80;
-}
 .fa-file-text-o {
 	color: #000;
 }
@@ -180,9 +177,12 @@ textarea {
     color: #333333;  
 }   
 .error-box {  
-    background-color: #df3e3e;  
-    border-color: #dd3c10;
+    background-color: #DF3E3E;  
+    border-color: #DD3C10;
     color: #FFF;  
+}
+.red {
+    color: #CD0000;
 }
 
 /* Margin zone */

@@ -64,7 +64,14 @@ exports.result = function(req, res) {
 * @param {Array} Players array.
 */
 exports.validateLength = function(players) {
-	if (players.length !== 2) {
+	try {
+		if (typeof(players[0][0]) === 'string' && typeof(players[1][0]) === 'string') {
+
+		}
+		else {
+			throw 'The duel format in invalid, the user and strategy should be strings.';	
+		}
+	} catch (err) {
 		throw 'The duel format is invalid, must have exactly 2 players.';
 	}
 }
@@ -151,10 +158,14 @@ exports.championship = function(tournament) {
 * @param {Object} Object with information for response.
 */
 exports.new = function(req, res) {
-	var data = JSON.parse(req.body.data),
-		finalists = [],
-		i = 0,
-		length = data.length;
+	try {
+		var data = JSON.parse(req.body.data),
+			finalists = [],
+			i = 0,
+			length = data.length;
+	} catch (err) {
+		throw 'The structure is invalid.';
+	}
 	
 	if (typeof(data[0][1]) === 'string') {
     	exports.validateLength(data);

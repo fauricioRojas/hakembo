@@ -89,8 +89,19 @@
 
         		  $timeout(function() {
           		  cleanUI();
-        		  }, 5000);
-      	 });
+        		  }, 10000);
+      	  })
+          .catch(function(err) {
+              vm.error = "The structure of the championship don't have been respected.";
+              vm.error2 = err;
+
+              $timeout(function() {
+                vm.error = '';
+              }, 10000);
+          });
     	}
+
+      //var someVar = "[ [\"fauri\", \"T\"], ]";
+      //console.log(JSON.parse(someVar));
   }
 })();

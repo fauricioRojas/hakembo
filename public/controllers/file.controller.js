@@ -30,7 +30,7 @@
 				title: 'Fourth file',
 				content: "[\n\t[\n\t\t[\n\t\t\t[\n\t\t\t\t[ [\"Carlos\", \"P\"], [\"Fauricio\", \"S\"] ],\n\t\t\t\t[ [\"Daniel\", \"R\"], [\"Arturo\", \"P\"] ]\n\t\t\t],\n\t\t\t[\n\t\t\t\t[ [\"Eder\", \"R\"], [\"Gabriel\", \"P\"] ],\n\t\t\t\t[ [\"Miguel\", \"P\"], [\"Mainor\", \"S\"] ]\n\t\t\t]\n\t\t],\n\t\t[\n\t\t\t[\n\t\t\t\t[ [\"Andres\", \"R\"], [\"Mauricio\", \"P\"] ],\n\t\t\t\t[ [\"Brian\", \"P\"], [\"Kenneth\", \"S\"] ] ],\n\t\t\t[\n\t\t\t\t[ [\"Yorbi\", \"R\"], [\"Cristian\", \"P\"] ],\n\t\t\t\t[ [\"Maikol\", \"P\"], [\"Julio\", \"S\"] ]\n\t\t\t]\n\t\t]\n\t],\n\t[\n\t\t[\n\t\t\t[\n\t\t\t\t[ [\"Carlos\", \"P\"], [\"Fauricio\", \"S\"] ],\n\t\t\t\t[ [\"Daniel\", \"R\"], [\"Arturo\", \"P\"] ]\n\t\t\t],\n\t\t\t[\n\t\t\t\t[ [\"Eder\", \"R\"], [\"Gabriel\", \"P\"] ],\n\t\t\t\t[ [\"Miguel\", \"P\"], [\"Mainor\", \"S\"] ]\n\t\t\t]\n\t],\n\t\t[\n\t\t\t[\n\t\t\t\t[ [\"Andres\", \"R\"], [\"Mauricio\", \"P\"] ],\n\t\t\t\t[ [\"Brian\", \"P\"], [\"Kenneth\", \"S\"] ] ],\n\t\t\t[\n\t\t\t\t[ [\"Yorbi\", \"R\"], [\"Cristian\", \"P\"] ],\n\t\t\t\t[ [\"Maikol\", \"P\"], [\"Julio\", \"S\"] ]\n\t\t\t]\n\t\t]\n\t]\n]",
 				rows: 44
-			},
+			}
 		];	
 		vm.downloadFile = downloadFile;
 		
