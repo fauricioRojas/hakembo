@@ -1,0 +1,42 @@
+<section ng-controller="ChampionshipController as championship">
+	<div class="title-box-2">
+		<label>Championship</label>
+	</div>
+	<div>
+		<div>
+			<div class="panel panel-secondary">
+	      		<div class="panel-heading">
+	      			<label>Upload a file with a championship</label>
+      			</div>
+	      		<div class="panel-body">
+	      			<textarea class="form-control" id="content" ng-model="championship.content" rows="8" readonly></textarea>
+      			</div>
+      			<div class="panel-footer">
+      				<span class="btn btn-default btn-file">
+		            	<span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
+	    				Choose <input type="file" id="file">
+					</span>&nbsp;
+					<button class="btn btn-primary" ng-click="championship.uploadFile($event);"><span class="fa fa-upload"></span>&nbsp;&nbsp;Upload</button>
+  				</div>
+	    	</div>
+	    </div>
+	    <div>
+	    	<div class="panel panel-secondary">
+	      		<div class="panel-heading">
+	      			<label>Results of the championship</label>
+      			</div>
+	      		<div class="panel-body" ng-show="championship.winner">
+	      			<p>The winner is <span class="bold" ng-bind="championship.winner"></span> with the strategy <span class="bold" ng-bind="championship.strategy"></span>.</p>
+	      			<p>Go to the top players to see how much scaled <span class="bold" ng-bind="championship.winner"></span>.</p>
+      			</div>
+      			<div class="panel-body" ng-show="championship.error">
+      				<p class="red" ng-bind="championship.error"></p>
+	      			<p class="red" ng-bind="championship.error2"></p>
+      			</div>
+      			<div class="panel-footer">
+					<button class="btn btn-primary" ng-click="championship.championship();" ng-disabled="!championship.comeOn"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp;Come on!</button>
+  				</div>
+	    	</div>
+	    </div>
+    </div>
+</section>

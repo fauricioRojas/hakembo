@@ -229,6 +229,9 @@ textarea {
 .fa-linkedin {
 	color: #0077B5;
 }
+.fa-github-alt {
+    font-size: 20px;   
+}
 
 /* API documentation zone */ 
 .font-code {

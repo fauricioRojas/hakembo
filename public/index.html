@@ -14,7 +14,6 @@
 	<div class="title-box-1">
 		<label>Rock-Paper-Scissors</label>
 	</div>
-
 	<div class="row">
 	  	<div class="col-md-3 col-sm-4">
 	    	<div class="sidebar-nav">
@@ -45,267 +44,38 @@
 	  	<div class="col-md-9 col-sm-8">
 	  		<div class="tab-content">
 		    	<!-- Championship section -->
-		    	<section class="tab-pane fade in active" ng-controller="ChampionshipController as championship" id="championship">
-		    		<div class="title-box-2">
-						<label>Championship</label>
-					</div>
-					<div>
-						<div>
-							<div class="panel panel-secondary">
-					      		<div class="panel-heading">
-					      			<label>Upload a file with a championship</label>
-				      			</div>
-					      		<div class="panel-body">
-					      			<textarea class="form-control" id="content" ng-model="championship.content" rows="8" readonly></textarea>
-				      			</div>
-				      			<div class="panel-footer">
-				      				<span class="btn btn-default btn-file">
-						            	<span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
-					    				Choose <input type="file" id="file">
-									</span>&nbsp;
-									<button class="btn btn-primary" ng-click="championship.uploadFile($event);"><span class="fa fa-upload"></span>&nbsp;&nbsp;Upload</button>
-			      				</div>
-					    	</div>
-					    </div>
-					    <div>
-					    	<div class="panel panel-secondary">
-					      		<div class="panel-heading">
-					      			<label>Results of the championship</label>
-				      			</div>
-					      		<div class="panel-body" ng-show="championship.winner">
-					      			<p>The winner is <span class="bold" ng-bind="championship.winner"></span> with the strategy <span class="bold" ng-bind="championship.strategy"></span>.</p>
-					      			<p>Go to the top players to see how much scaled <span class="bold" ng-bind="championship.winner"></span>.</p>
-				      			</div>
-				      			<div class="panel-body" ng-show="championship.error">
-				      				<p class="red" ng-bind="championship.error"></p>
-					      			<p class="red" ng-bind="championship.error2"></p>
-				      			</div>
-				      			<div class="panel-footer">
-									<button class="btn btn-primary" ng-click="championship.championship();" ng-disabled="!championship.comeOn"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp;Come on!</button>
-			      				</div>
-					    	</div>
-					    </div>
-				    </div>
+		    	<section class="tab-pane fade in active" id="championship">
+		    		<div ng-include="'/views/championship.html'"></div>
 		    	</section>
 		    	
 		    	<!-- Top players section -->
-		    	<section class="tab-pane fade" ng-controller="TopController as top" id="top">
-		    		<div class="title-box-2">
-						<label ng-bind="top.title"></label>
-					</div>
-					<div class="panel panel-secondary">
-			      		<div class="panel-heading">
-			      			<label>It shows the {{top.title | lowercase}} of the players with more score of all championships.</label>
-		      			</div>
-			      		<div class="panel-body">
-			      			<form>
-					            <div>
-					            	<p>
-				                    	<label>If you want change the number players of the top, type the number</label>
-				                    	<input class="form-control" type="text" ng-model="top.count" ng-blur="reset.restarting()">
-			                    	</p>
-					            </div>
-					            <div>
-						            <center>
-						                <button class="btn btn-primary" ng-click="top.getTopPlayers();"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Go for top players</button>
-						            </center>
-						        </div>
-							</form>
-		      			</div>
-		      			<div class="panel-footer">
-		      				<ol ng-show="top.players.length !== 0">
-								<li ng-repeat="(index, player) in top.players" ng-bind="player" ng-class="{'first-player' : index === 0, 'second-player' : index === 1, 'third-player' : index === 2}"></li>
-							</ol>
-							<div class="info-box margin" ng-show="top.players.length === 0">
-								There isn't players in the database.
-							</div>
-	      				</div>
-			    	</div>
+		    	<section class="tab-pane fade" id="top">
+		    		<div ng-include="'/views/top.players.html'"></div>
 		    	</section>
 
 		    	<!-- Files example section -->
-		    	<section class="tab-pane fade" ng-controller="FileController as file" id="files">
-		    		<div class="title-box-2">
-						<label>Files examples</label>
-					</div>
-					<div class="panel panel-secondary" ng-repeat="eachFile in file.files">
-			      		<div class="panel-heading">
-			      			<label ng-bind="eachFile.title"></label>
-		      			</div>
-			      		<div class="panel-body">
-			      			<textarea class="form-control" ng-model="eachFile.content" rows="{{eachFile.rows}}" readonly></textarea>
-		      			</div>
-		      			<div class="panel-footer">
-		      				<button class="btn btn-primary" ng-click="file.downloadFile(eachFile.content);"><span class="fa fa-download"></span>&nbsp;&nbsp;Download file</button>
-	      				</div>
-			    	</div>
+		    	<section class="tab-pane fade" id="files">
+		    		<div ng-include="'/views/files.example.html'"></div>
 		    	</section>
 
 		    	<!-- Database section -->
-		    	<section class="tab-pane fade" ng-controller="ResetController as reset" id="database">
-		    		<div class="title-box-2">
-						<label>Database</label>
-					</div>
-					<div class="panel panel-danger">
-				  		<div class="panel-heading">
-				  			<label>Danger zone</label>
-			  			</div>
-				  		<div class="panel-body">
-				  			<p>Here you can clean up the database and start over.</p>
-				  			<form>
-					            <div>
-					            	<p>
-				                    	<label class="margin-top">Type the word 'players' to confirm</label>
-				                    	<input class="form-control" type="text" ng-model="confirm" ng-blur="reset.restarting()">
-			                    	</p>
-					            </div>
-					            <div>
-					            	<div ng-show="passState" ng-class="passClass">{{passMsg}}</div>
-						            <center>
-						                <button class="btn btn-danger" ng-click="reset.resetDatabase();" ng-disabled="reset.resetOK"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Reset database</button>
-						            </center>
-						        </div>        
-							</form>
-				  		</div>
-					</div>
-					<div ng-show="reset.resetMsg" ng-class="reset.resetStyle" ng-bind="reset.resetMsg"></div>
+		    	<section class="tab-pane fade" id="database">
+		    		<div ng-include="'/views/database.html'"></div>
 		    	</section>
 
 		    	<!-- API documentation section -->
 		    	<section class="tab-pane fade" id="api">
-		    		<div class="title-box-2">
-						<label>API documentation</label>
-					</div>
-					<div>
-						<p>The API must contain mandatory 2 resources and 1 optional. Find the specification of the web services below:</p>
-						<div class="margin-top">
-							<label class="title-3">POST api/championship/result</label>
-							<p>Stores the first and second place of a tournament, each user is stored with their respective scores. The user names will be unique, but the same user can win 1 or more championships. Returns the operation status if successfully.</p>
-							<div class="margin-top">
-								<label>Resource information:</label>
-								<div><label>Resource URL:</label> /api/championship/result</div>
-								<div><label>HTTP Method:</label> POST</div>
-								<div><label>Response format:</label> JSON</div>
-								<label>Parameters:</label>
-								<ul>
-									<li><span class="font-code">first(required):</span> The name of the winner of the championship. Example: <span class="font-code">Dave</span></li>
-									<li><span class="font-code">second(required)</span> The name of the second place of the championship. Example: <span class="font-code">Armando</span></li>
-								</ul>
-							</div>
-							<label>Example Request</label>
-							<div class="code-box font-code">
-								<p>POST https://fauricio.scalingo.io/api/championship/result</p>
-								<p>POST Data first=Dave&amp;second=Armando</p>
-							</div>
-							<label>Example Output</label>
-							<div class="code-box font-code">
-								<div>{</div>
-								<div>&nbsp;&nbsp;&nbsp;status: 'success'</div>
-								<div>}</div>
-							</div>
-						</div>
-						<div class="margin-top">
-							<label class="title-3">GET api/championship/top</label>
-							<p>Retrieves the top players of all championships. Returns the list of player names based on the count provided.</p>
-							<div class="margin-top">
-								<label>Resource information:</label>
-								<div><label>Resource URL:</label> /api/championship/top</div>
-								<div><label>HTTP Method:</label> GET</div>
-								<div><label>Response format:</label> JSON</div>
-								<label>Parameters:</label>
-								<ul>
-									<li><span class="font-code">count(optional):</span> Sets the count of records to be retrieved. If not provided, the default value is 10. Example: <span class="font-code">123</span></li>
-								</ul>
-							</div>
-							<label>Example Request</label>
-							<div class="code-box font-code">
-								<p>GET https://fauricio.scalingo.io/api/championship/top?count=10</p>
-							</div>
-							<label>Example Output</label>
-							<div class="code-box font-code">
-								<div>{</div>
-								<div>&nbsp;&nbsp;&nbsp;players: ["Dave", "Armando", "Robert"]</div>
-								<div>}</div>
-							</div>
-						</div>
-						<div class="margin-top">
-							<label class="title-3">(Optional) POST api/championship/new</label>
-							<p>Receives the championship data and computes it to identify the winner. The first and second place are stored into a database with their respective scores. Returns the winner of the championship.</p>
-							<div class="margin-top">
-								<label>Resource information:</label>
-								<div><label>Resource URL:</label> /api/championship/new</div>
-								<div><label>HTTP Method:</label> POST</div>
-								<div><label>Response format:</label> JSON</div>
-								<label>Parameters:</label>
-								<ul>
-									<li><span class="font-code">data(mandatory):</span> The data of the championship following the bracketed array standard. Example: <span class="font-code">[["Armando", "P"],["Dave", "S"]]</span></li>
-								</ul>
-							</div>
-							<label>Example Request</label>
-							<div class="code-box font-code">
-								<p>POST https://fauricio.scalingo.io/api/championship/new</p>
-								<p>POST Data data=[["Armando", "P"],["Dave", "S"]]</p>
-							</div>
-							<label>Example Output</label>
-							<div class="code-box font-code">
-								<div>{</div>
-								<div>&nbsp;&nbsp;&nbsp;winner: ["Dave", "S"]</div>
-								<div>}</div>
-							</div>
-						</div>
-					</div>
+		    		<div ng-include="'/views/api.documentation.html'"></div>
 		    	</section>
 
 		    	<!-- About solution section -->
-		    	<section class="tab-pane fade" ng-controller="AboutController as about" id="about-solution">
-		    		<div class="title-box-2">
-						<label>About solution</label>
-					</div>
-					<div>
-						<!-- Technologies used -->
-						<div>
-							<label class="title-3" ng-bind="about.technologies"></label>
-							<img ng-src="{{about.mean}}" class="img-responsive" alt="MEAN">
-							<p class="justify" ng-repeat="description in about.technologiesDescriptions" ng-bind="description"></p>
-						</div>
-						<!-- Solution implemented -->
-						<div class="margin-top">	
-							<label class="title-3" ng-bind="about.solution"></label>
-							<div class="justify" ng-repeat="description in about.solutionDescriptions">
-								<p ng-bind="description.text"></p>
-								<ol ng-show="description.steps.length !== 0">
-									<li ng-repeat="step in description.steps" ng-bind="step"></li>
-								</ol>
-							</div>
-							<label class="title-3" ng-bind="about.source"></label>
-							<p>{{about.sourceDescription}} <a class="fa fa-github-alt" href="{{about.sourceLink}}" target="_blank"></a></p>
-						</div>
-					</div>
+		    	<section class="tab-pane fade" id="about-solution">
+		    		<div ng-include="'/views/about.solution.html'"></div>
 		    	</section>
 
 		    	<!-- About me section -->
-		    	<section class="tab-pane fade" ng-controller="AboutController as about" id="about-me">
-		    		<div class="title-box-2">
-						<label>About me</label>
-					</div>
-					<div>
-						<div>
-							<label class="title-3" ng-bind="about.developerName"></label>
-							<p class="justify" ng-bind="about.developerDescription"></p>
-						</div>
-						<div class="margin-top">
-							<label class="title-3">Follow me at</label>
-							<div class="red box-flex">
-						    	<a ng-repeat="net in about.developerSocialNets" ng-class="net.icon" href="{{net.url}}" target="_blank"></a>
-							</div>
-						</div>
-						<div class="margin-top">
-							<label class="title-3">Contact</label>
-							<div ng-repeat="contact in about.contacts">
-						    	<span class="{{contact.icon}}"></span>&nbsp;&nbsp;{{contact.text}}
-							</div>
-						</div>
-					</div>
+		    	<section class="tab-pane fade" id="about-me">
+		    		<div ng-include="'/views/about.me.html'"></div>
 		    	</section>
 	    	</div>
 	  	</div>

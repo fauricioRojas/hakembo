@@ -1,0 +1,16 @@
+<section ng-controller="FileController as file">
+	<div class="title-box-2">
+		<label>Files examples</label>
+	</div>
+	<div class="panel panel-secondary" ng-repeat="eachFile in file.files">
+  		<div class="panel-heading">
+  			<label ng-bind="eachFile.title"></label>
+		</div>
+  		<div class="panel-body">
+  			<textarea class="form-control" ng-model="eachFile.content" rows="{{eachFile.rows}}" readonly></textarea>
+		</div>
+		<div class="panel-footer">
+			<button class="btn btn-primary" ng-click="file.downloadFile(eachFile.content);"><span class="fa fa-download"></span>&nbsp;&nbsp;Download file</button>
+		</div>
+	</div>
+</section>

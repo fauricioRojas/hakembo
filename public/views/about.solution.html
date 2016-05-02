@@ -1,0 +1,25 @@
+<section ng-controller="AboutController as about">
+	<div class="title-box-2">
+		<label>About solution</label>
+	</div>
+	<div>
+		<!-- Technologies used -->
+		<div>
+			<label class="title-3" ng-bind="about.technologies"></label>
+			<img ng-src="{{about.mean}}" class="img-responsive" alt="MEAN">
+			<p class="justify" ng-repeat="description in about.technologiesDescriptions" ng-bind="description"></p>
+		</div>
+		<!-- Solution implemented -->
+		<div class="margin-top">	
+			<label class="title-3" ng-bind="about.solution"></label>
+			<div class="justify" ng-repeat="description in about.solutionDescriptions">
+				<p ng-bind="description.text"></p>
+				<ol ng-show="description.steps.length !== 0">
+					<li ng-repeat="step in description.steps" ng-bind="step"></li>
+				</ol>
+			</div>
+			<label class="title-3" ng-bind="about.source"></label>
+			<p>{{about.sourceDescription}} <a class="fa fa-github-alt" href="{{about.sourceLink}}" target="_blank"></a></p>
+		</div>
+	</div>
+</section>

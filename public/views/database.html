@@ -1,0 +1,25 @@
+<section ng-controller="ResetController as reset">
+	<div class="title-box-2">
+		<label>Database</label>
+	</div>
+	<div class="panel panel-danger">
+  		<div class="panel-heading">
+  			<label>Danger zone</label>
+			</div>
+  		<div class="panel-body">
+  			<p>Here you can clean up the database and start over.</p>
+  			<form>
+            	<p class="margin-top">
+                	<label>Type the word 'players' to confirm</label>
+                	<input class="form-control" type="text" ng-model="confirm" ng-blur="reset.restarting()">
+            	</p>
+	            <div>
+		            <center>
+		                <button class="btn btn-danger" ng-click="reset.resetDatabase();" ng-disabled="reset.resetOK"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Reset database</button>
+		            </center>
+		        </div>        
+			</form>
+  		</div>
+	</div>
+	<div ng-show="reset.resetMsg" ng-class="reset.resetStyle" ng-bind="reset.resetMsg"></div>
+</section>

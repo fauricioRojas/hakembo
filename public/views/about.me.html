@@ -1,0 +1,23 @@
+<section ng-controller="AboutController as about">
+	<div class="title-box-2">
+		<label>About me</label>
+	</div>
+	<div>
+		<div>
+			<label class="title-3" ng-bind="about.developerName"></label>
+			<p class="justify" ng-bind="about.developerDescription"></p>
+		</div>
+		<div class="margin-top">
+			<label class="title-3">Follow me at</label>
+			<div class="red box-flex">
+		    	<a ng-repeat="net in about.developerSocialNets" ng-class="net.icon" href="{{net.url}}" target="_blank"></a>
+			</div>
+		</div>
+		<div class="margin-top">
+			<label class="title-3">Contact</label>
+			<div ng-repeat="contact in about.contacts">
+		    	<span class="{{contact.icon}}"></span>&nbsp;&nbsp;{{contact.text}}
+			</div>
+		</div>
+	</div>
+</section>

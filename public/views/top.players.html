@@ -1,0 +1,31 @@
+<section ng-controller="TopController as top">
+	<div class="title-box-2">
+		<label ng-bind="top.title"></label>
+	</div>
+	<div class="panel panel-secondary">
+  		<div class="panel-heading">
+  			<label>It shows the {{top.title | lowercase}} of the players with more score of all championships.</label>
+			</div>
+  		<div class="panel-body">
+  			<form>
+            	<p>
+                	<label>If you want change the number players of the top, type the number</label>
+                	<input class="form-control" type="text" ng-model="top.count" ng-blur="reset.restarting()">
+            	</p>
+	            <div>
+		            <center>
+		                <button class="btn btn-primary" ng-click="top.getTopPlayers();"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Go for top players</button>
+		            </center>
+		        </div>
+			</form>
+		</div>
+		<div class="panel-footer">
+			<ol ng-show="top.players.length !== 0">
+				<li ng-repeat="(index, player) in top.players" ng-bind="player" ng-class="{'first-player' : index === 0, 'second-player' : index === 1, 'third-player' : index === 2}"></li>
+			</ol>
+			<div class="info-box margin" ng-show="top.players.length === 0">
+				There isn't players in the database.
+			</div>
+		</div>
+	</div>
+</section>
