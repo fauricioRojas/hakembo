@@ -65,7 +65,9 @@ exports.result = function(req, res) {
 */
 exports.validateLength = function(players) {
 	try {
-		if (typeof(players[0][0]) === 'string' && typeof(players[1][0]) === 'string') {
+		console.log(typeof(players[0][0]) === 'string', typeof(players[0][1]) === 'string', typeof(players[1][0]) === 'string', typeof(players[1][1]) === 'string');
+		if (typeof(players[0][0]) === 'string' && typeof(players[0][1]) === 'string' 
+			&& typeof(players[1][0]) === 'string' && typeof(players[1][1]) === 'string') {
 
 		}
 		else {
@@ -151,7 +153,6 @@ exports.championship = function(tournament) {
     }
 }
 
-
 /**
 * Get the tournament from the front-end and pass it to the championship method. Save in the database the winner with 3 points and subchampion with 1 point.
 * @param {Object} Contain information that receive from the web app.
@@ -216,22 +217,6 @@ exports.top = function(req, res) {
 	    }
 
 		res.status(200).jsonp({ players: manipulatePlayers(players) });
-	});
-};
-
-/**
-* Return all players in the database.
-* @param {Object} Contain information that receive from the web app.
-* @param {Object} Object with information for response.
-* @return {array} Players.
-*/
-exports.findAll = function(req, res) {
-	Player.find(function(err, players) {
-	    if(err) {
-	    	res.send(500, err.message);
-	    }
-
-		res.status(200).jsonp(players);
 	});
 };
 

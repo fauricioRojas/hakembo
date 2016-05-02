@@ -40,9 +40,6 @@ championship.route('/top')
 championship.route('/new')
   	.post(PlayerController.new);
 
-championship.route('/all')
-  	.get(PlayerController.findAll);
-
 championship.route('/reset')
     .delete(PlayerController.resetDatabase);
 
