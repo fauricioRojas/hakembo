@@ -61,9 +61,9 @@
 				      			<div class="panel-footer">
 				      				<span class="btn btn-default btn-file">
 						            	<span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;
-					    				Choose file <input type="file" id="file">
+					    				Choose <input type="file" id="file">
 									</span>&nbsp;
-									<button class="btn btn-primary" ng-click="championship.uploadFile($event);"><span class="fa fa-upload"></span>&nbsp;&nbsp;Upload file</button>
+									<button class="btn btn-primary" ng-click="championship.uploadFile($event);"><span class="fa fa-upload"></span>&nbsp;&nbsp;Upload</button>
 			      				</div>
 					    	</div>
 					    </div>
@@ -81,7 +81,7 @@
 					      			<p class="red" ng-bind="championship.error2"></p>
 				      			</div>
 				      			<div class="panel-footer">
-									<button class="btn btn-primary" ng-click="championship.championship();" ng-disabled="!championship.comeOn"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp;Come on for the championship!</button>
+									<button class="btn btn-primary" ng-click="championship.championship();" ng-disabled="!championship.comeOn"><span class="fa fa-paper-plane"></span>&nbsp;&nbsp;Come on!</button>
 			      				</div>
 					    	</div>
 					    </div>
@@ -293,12 +293,16 @@
 							<label class="title-3" ng-bind="about.developerName"></label>
 							<p class="justify" ng-bind="about.developerDescription"></p>
 						</div>
-						<div class="margin-top">		
-							<div>
-								<label class="title-3">Follow me at</label>
-							</div>
+						<div class="margin-top">
+							<label class="title-3">Follow me at</label>
 							<div class="red box-flex">
-						    	<a ng-repeat="net in about.developerSocialNets" ng-class="net.class" href="{{net.url}}" target="_blank"></a>
+						    	<a ng-repeat="net in about.developerSocialNets" ng-class="net.icon" href="{{net.url}}" target="_blank"></a>
+							</div>
+						</div>
+						<div class="margin-top">
+							<label class="title-3">Contact</label>
+							<div ng-repeat="contact in about.contacts">
+						    	<span class="{{contact.icon}}"></span>&nbsp;&nbsp;{{contact.text}}
 							</div>
 						</div>
 					</div>

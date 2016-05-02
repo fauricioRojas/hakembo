@@ -248,7 +248,7 @@ textarea {
 }
 
 @media screen and (min-width: 240px) {
-    .title-box {
+    .title-box-1 {
 		font-size: 1.8em;
 	}
 	body {
@@ -256,7 +256,7 @@ textarea {
 	}
 }
 @media screen and (min-width: 360px) {
-    .title-box {
+    .title-box-1 {
 		font-size: 1.8em;
 	}
 	body {
@@ -264,7 +264,7 @@ textarea {
 	}
 }
 @media screen and (min-width: 480px) {
-    .title-box {
+    .title-box-1 {
 		font-size: 2em;
 	}
 	body {
@@ -272,7 +272,7 @@ textarea {
 	}
 }
 @media screen and (min-width: 640px) {
-    .title-box {
+    .title-box-1 {
 		font-size: 2.2em;
 	}
 	body {

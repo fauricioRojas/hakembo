@@ -15,23 +15,33 @@
 		vm.developerContact = 'Follo me at'
 		vm.developerSocialNets = [
 			{
-				class: 'btn fa fa-facebook',
+				icon: 'btn fa fa-facebook',
 				url: 'https://www.facebook.com/fauricioRojas'
 			},
 			{
-				class: 'btn fa fa-github',
+				icon: 'btn fa fa-github',
 				url: 'https://github.com/fauricioRojas'
 			},
 			{
-				class: 'btn fa fa-linkedin',
+				icon: 'btn fa fa-linkedin',
 				url: 'https://www.linkedin.com/in/fauriciorojas'
+			}
+		];
+		vm.contacts = [
+			{
+				text: 'fauri.1994@gmail.com',
+				icon: 'fa fa-envelope-o',
+			},
+			{
+				text: 'fauricio_rojas',
+				icon: 'fa fa-skype'
 			}
 		];
 
 		vm.technologies = 'Technologies used';
 		vm.mean = '../img/mean.png';
 		vm.technologiesDescriptions = [
-			"This web app was developed with MEAN JavaScript software stack. It's formed by MongoDB, ExpressJS, AngularJS and NodeJS. All of the MEAN components are written in JavaScript, both the front-end and back-end are writen in the same language. AngularJS is a powerfull framework that allows to developers a great facility for design front-end, MongoDB is very easy to use because it's a NoSQL database, both node and express facility back-end development and runtime environment. To make a better UI design, I used Twitter Bootstrap framework and Font Awesome.",
+			"This web app was developed with MEAN JavaScript. It's formed by MongoDB, ExpressJS, AngularJS and NodeJS. All of the MEAN components are written in JavaScript, both the front-end and back-end are writen in the same language. AngularJS is a powerfull framework that allows to developers a great facility for design front-end, MongoDB is very easy to use because it's a NoSQL database, both node and express facility back-end development and runtime environment. To make a better UI design, I used Twitter Bootstrap framework and Font Awesome.",
 		    "I'm fan of AngularJS and JavaScript, I really like to develop with they and the facility for development in a only language in front-end and back-end are the reasons because I choosed use the MEAN."
 	    ];
 		

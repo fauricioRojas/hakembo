@@ -65,7 +65,6 @@ exports.result = function(req, res) {
 */
 exports.validateLength = function(players) {
 	try {
-		console.log(typeof(players[0][0]) === 'string', typeof(players[0][1]) === 'string', typeof(players[1][0]) === 'string', typeof(players[1][1]) === 'string');
 		if (typeof(players[0][0]) === 'string' && typeof(players[0][1]) === 'string' 
 			&& typeof(players[1][0]) === 'string' && typeof(players[1][1]) === 'string') {
 
