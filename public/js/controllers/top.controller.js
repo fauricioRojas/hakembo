@@ -6,13 +6,13 @@
 		.controller('TopController', TopController);
 
 	// Inject dependencies.
-	TopController.$inject = ['TopFactory'];
+	TopController.$inject = ['$scope', 'TopFactory'];
 	
 	/**
 	* Top controller.
 	* @param {Object} Service that provides functions to help controller's functionality.
 	*/
-	function TopController(TopFactory) {
+	function TopController($scope, TopFactory) {
 		var vm = this;
 		vm.title = 'Top 10';
 		vm.count = '';

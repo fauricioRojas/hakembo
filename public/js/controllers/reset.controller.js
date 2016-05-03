@@ -51,7 +51,7 @@
 
 					$timeout(function() {
 						vm.resetMsg = '';					
-					}, 5000);
+					}, 7000);
 				}
 				else {
 					vm.resetStyle = 'error-box';

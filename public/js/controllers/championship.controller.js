@@ -89,7 +89,7 @@
 
         		  $timeout(function() {
           		  cleanUI();
-        		  }, 10000);
+        		  }, 7000);
       	  })
           .catch(function(err) {
               vm.error = "An error has occured.";
@@ -97,7 +97,7 @@
 
               $timeout(function() {
                 vm.error = '';
-              }, 10000);
+              }, 7000);
           });
     	}
   }
