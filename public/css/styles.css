@@ -172,9 +172,9 @@ textarea {
     text-align: center;
 }
 .success-box {  
-    background-color: #5FA552;  
-    border-color: #1CA450;  
-    color: #FFF;  
+    background-color: #90EE90;  
+    border-color: #0E552B;  
+    color: #333333;  
 }  
 .info-box {  
     background-color: #C6E2FF;
@@ -182,9 +182,9 @@ textarea {
     color: #333333;  
 }   
 .error-box {  
-    background-color: #DF3E3E;  
+    background-color: #FFEBE8;  
     border-color: #DD3C10;
-    color: #FFF;  
+    color: #000;  
 }
 .red {
     color: #CD0000;

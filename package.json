@@ -1,17 +1,17 @@
 {
-  	"name": "hakembo",
-  	"version": "1.0.0",
+  "name": "hakembo",
+  "version": "1.0.0",
 	"description": "A famous game of rock, paper and scissors using MEAN.",
-  	"main": "server.js",
-  	"scripts": {
-    	"start": "node server"
-  	},
-  	"author": "Fauricio Rojas Hernandez",
-  	"license": "ISC",
-  	"dependencies": {
-	    "body-parser": "^1.15.0",
-    	"express": "^4.13.4",
-    	"method-override": "^2.3.5",
-    	"mongoose": "^4.4.14"
-  	}
+  "main": "server.js",
+  "scripts": {
+   	"start": "node server"
+  },
+  "author": "Fauricio Rojas Hernandez",
+  "license": "ISC",
+  "dependencies": {
+	  "body-parser": "^1.15.0",
+   	"express": "^4.13.4",
+   	"method-override": "^2.3.5",
+   	"mongoose": "^4.4.14"
+  }
 }

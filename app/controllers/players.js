@@ -7,41 +7,48 @@ var Player = mongoose.model('Player');
 * Insert a new player in the database.
 * @param {string} Player's username.
 * @param {integer} Score's username.
+* @param {Object} Contain information that receive from the web app.
+* @param {Object} Object with information for response.
 */
-function addPlayer(user, score) {
+function addPlayer(user, score, req, res) {
 	var player = new Player({
 		user: user,
 		score: score,
 	});
 
-	player.save();
+	player.save(function(err) {
+		if(err) {
+			return res.status(500).jsonp({ status: 'An error has ocurred when saving a player.' });
+		}
+	});
 };
 
 /**
 * Validate if a player exists or no, if exists add the player else increase the user's score.
 * @param {string} Player's username.
 * @param {integer} Score's username.
+* @param {Object} Contain information that receive from the web app.
 * @param {Object} Object with information for response.
 * @returns {Object} If occurs an error.
 */
-exports.playersManagement = function(user, score, res) {
+exports.playersManagement = function(user, score, req, res) {
 	var data = {
 		user: user
 	};
 	
 	Player.findOne(data, function(err, player) {
 		if (err) {
-			return res.send(500, err.message);
+			return res.status(500).jsonp({ status: 'An unexpected error has ocurred, please try again.' });
 		}
 	    else if (player === null) {
-	    	addPlayer(user, score);
+	    	addPlayer(user, score, req, res);
 	    	return;
 	    }
 
 	    player.score += score;
 	    player.save(function(err) {
 			if(err) {
-				return res.send(500, err.message);
+				return res.status(500).jsonp({ status: 'An error has ocurred when saving a player.' });
 			}
 		});
 	});
@@ -53,37 +60,45 @@ exports.playersManagement = function(user, score, res) {
 * @param {Object} Object with information for response.
 */
 exports.result = function(req, res) {
-	exports.playersManagement(req.body.first, 3, res);
-	exports.playersManagement(req.body.second, 1, res);
+	exports.playersManagement(req.body.first, 3, req, res);
+	exports.playersManagement(req.body.second, 1, req, res);
 
 	res.status(200).jsonp({ status: 'success' });
 };
 
 /**
-* Validate a duel must have exactly 2 players. If the array's length is different of 2, raise an exception.
+* Validate a duel must have exactly 2 players and the user and strategy should be strings, else raise an exception.
 * @param {Array} Players array.
+* @param {Object} Contain information that receive from the web app.
+* @param {Object} Object with information for response.
 */
-exports.validateLength = function(players) {
+exports.validateDuel = function(players, req, res) {
+	if (players.length !== 2) {
+		return res.status(500).jsonp({ status: 'The duel format is invalid, must have exactly 2 players.' });
+	}
+
 	try {
 		if (typeof(players[0][0]) === 'string' && typeof(players[0][1]) === 'string' 
 			&& typeof(players[1][0]) === 'string' && typeof(players[1][1]) === 'string') {
-
+			
 		}
 		else {
-			throw 'The duel format in invalid, the user and strategy should be strings.';	
+			return res.status(500).jsonp({ status: 'The duel format in invalid, the user and strategy should be strings.' });
 		}
 	} catch (err) {
-		throw 'The duel format is invalid, must have exactly 2 players.';
+		return res.status(500).jsonp({ status: 'The duel format is invalid, must have exactly 2 players.' });
 	}
 }
 
 /**
 * Validate that a strategy is "R", "P" or "S". If the strategy is different of those strategies, raise an exception.
 * @param {string} Strategy.
+* @param {Object} Contain information that receive from the web app.
+* @param {Object} Object with information for response.
 */
-exports.validateStrategy = function(strategy) {
+exports.validateStrategy = function(strategy, req, res) {
 	if (strategy !== 'R' && strategy !== 'P' && strategy !== 'S') {
-		throw 'The player strategy only can be R, P or S.';
+		return res.status(500).jsonp({ status: 'The player strategy only can be R, P or S.' });
 	}
 }
 
@@ -104,15 +119,17 @@ exports.firstIsWinner = function(strategy1, strategy2) {
 /**
 * Principal method for determinate who is the winner. Call validateStrategy and firstIsWinner method.
 * @param {Array} Array with the winner and subchampion.
+* @param {Object} Contain information that receive from the web app.
+* @param {Object} Object with information for response.
 */
-exports.whoWin = function(player1, player2) {
+exports.whoWin = function(player1, player2, req, res) {
 	// Transform the strategy to uppercase.
 	player1[1] = player1[1].toUpperCase();
 	player2[1] = player2[1].toUpperCase();
 
 	// Validate if strategy is valid.
-	exports.validateStrategy(player1[1]);
-	exports.validateStrategy(player2[1]);
+	exports.validateStrategy(player1[1], req, res);
+	exports.validateStrategy(player2[1], req, res);
 
 	if (player1[1] !== player2[1]) {
 		// Player 1 is the winner.
@@ -132,23 +149,24 @@ exports.whoWin = function(player1, player2) {
 /**
 * Travel throughout the players' array recursively and get the winner of each duel. From each winner create new duels and so on until the tournament ends.
 * @param {Array} Array with championship's players.
+* @param {Object} Contain information that receive from the web app.
 * @param {Object} Object with information for response.
 * @returns {Array} Array with the first and second place of the championship.
 */
-exports.championship = function(tournament) {
+exports.championship = function(tournament, req, res) {
 	var key1,
 		key2;
 
   	if (typeof(tournament[0][1]) === 'string') {
-  		exports.validateLength(tournament);
+  		exports.validateDuel(tournament, req, res);
 
-    	return exports.whoWin(tournament[0],tournament[1])[0];
+    	return exports.whoWin(tournament[0],tournament[1], req, res)[0];
     }
   	else {
-    	key1 = exports.championship(tournament[0]);
-    	key2 = exports.championship(tournament[1]);
+    	key1 = exports.championship(tournament[0], req, res);
+    	key2 = exports.championship(tournament[1], req, res);
     	
-    	return exports.championship([key1, key2]);
+    	return exports.championship([key1, key2], req, res);
     }
 }
 
@@ -164,20 +182,20 @@ exports.new = function(req, res) {
 			i = 0,
 			length = data.length;
 	} catch (err) {
-		throw 'The structure is invalid.';
+		return res.status(500).jsonp({ status: "The structure of the championship is invalid. Please check it." });
 	}
 	
 	if (typeof(data[0][1]) === 'string') {
-    	exports.validateLength(data);
+    	exports.validateDuel(data, req, res);
     	finalists = data;
     }
     else {
 		for ( ; i < length; i++) {
-			finalists.push(exports.championship(data[i]));
+			finalists.push(exports.championship(data[i], req, res));
 		}
 	}
 
-	finalists = exports.whoWin(finalists[0], finalists[1], res);
+	finalists = exports.whoWin(finalists[0], finalists[1], req, res);
 
 	exports.playersManagement(finalists[0][0], 3, res);
 	exports.playersManagement(finalists[1][0], 1, res);
@@ -212,7 +230,7 @@ exports.top = function(req, res) {
 
 	Player.find({}, {user: ''}).sort(score).limit(count).exec(function(err, players) {
 	    if (err) {
-	    	return res.send(500, err.message);
+	    	return res.status(500).jsonp({ status: err.message });
 	    }
 
 		res.status(200).jsonp({ players: manipulatePlayers(players) });
@@ -228,7 +246,7 @@ exports.top = function(req, res) {
 exports.resetDatabase = function(req, res) {
 	Player.remove(function(err, response) {
 	    if(err) {
-	    	res.send(500, err.message);
+	    	return res.status(500).jsonp({ status: err.message });
 	    }
 
 		res.status(200).jsonp({ status: 'success' });

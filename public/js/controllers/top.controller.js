@@ -29,7 +29,7 @@
 			TopFactory.getTopPlayers(vm.count)
 			.then(function(response) {
 				vm.players = response;
-			})
+			});
 		}
 	}
 })();
