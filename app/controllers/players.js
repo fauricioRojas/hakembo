@@ -15,7 +15,7 @@ function addPlayer(user, score, req, res) {
 		user: user,
 		score: score,
 	});
-
+	
 	player.save(function(err) {
 		if(err) {
 			return res.status(500).jsonp({ status: 'An error has ocurred when saving a player.' });
@@ -162,12 +162,11 @@ exports.championship = function(tournament, req, res) {
 
     	return exports.whoWin(tournament[0],tournament[1], req, res)[0];
     }
-  	else {
-    	key1 = exports.championship(tournament[0], req, res);
-    	key2 = exports.championship(tournament[1], req, res);
-    	
-    	return exports.championship([key1, key2], req, res);
-    }
+	
+	key1 = exports.championship(tournament[0], req, res);
+	key2 = exports.championship(tournament[1], req, res);
+	
+	return exports.championship([key1, key2], req, res);
 }
 
 /**
@@ -197,8 +196,8 @@ exports.new = function(req, res) {
 
 	finalists = exports.whoWin(finalists[0], finalists[1], req, res);
 
-	exports.playersManagement(finalists[0][0], 3, res);
-	exports.playersManagement(finalists[1][0], 1, res);
+	exports.playersManagement(finalists[0][0], 3, req, res);
+	exports.playersManagement(finalists[1][0], 1, req, res);
 	
 	res.status(200).jsonp({ winner: finalists[0] });
 };
